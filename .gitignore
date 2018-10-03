@@ -12,3 +12,5 @@
 *.out
 .env.yml
 .idea
+.DS_Store
+/vendor
