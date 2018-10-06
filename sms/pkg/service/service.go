@@ -2,29 +2,20 @@ package service
 
 import "context"
 
-// 对外开放的短信服务，内部调用api微服务，走http方式
+// 短信业务服务
+// 短信核心业务处理，以grpc方式对api提供业务接口
 type SmsService interface {
-	Send(ctx context.Context, username string, key string, info SMSInfo) (int, string, string)
-	Query(ctx context.Context, username string, key string) (float64, error)
+	Send(ctx context.Context, content SMSContent) (string, error)
 }
 
-// 短信实体结构
-type SMSInfo struct {
-	Sign    string // 短信签名
-	Content string // 短信内容
-	SubCode string // 短信扩展码
-	Type    int    // 短信类型
+type SMSContent struct {
 }
 
 type basicSmsService struct{}
 
-func (b *basicSmsService) Send(ctx context.Context, username string, key string, info SMSInfo) (i0 int, s1 string, s2 string) {
+func (b *basicSmsService) Send(ctx context.Context, content SMSContent) (s0 string, e1 error) {
 	// TODO implement the business logic of Send
-	return i0, s1, s2
-}
-func (b *basicSmsService) Query(ctx context.Context, username string, key string) (f0 float64, e1 error) {
-	// TODO implement the business logic of Query
-	return f0, e1
+	return s0, e1
 }
 
 // NewBasicSmsService returns a naive, stateless implementation of SmsService.

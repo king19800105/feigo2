@@ -3,7 +3,7 @@ package http
 
 import (
 	http "github.com/go-kit/kit/transport/http"
-	endpoint "github.com/king19800105/feigo/sms/pkg/endpoint"
+	endpoint "github.com/king19800105/feigo/api/pkg/endpoint"
 	http1 "net/http"
 )
 
@@ -11,7 +11,7 @@ import (
 // predefined paths.
 func NewHTTPHandler(endpoints endpoint.Endpoints, options map[string][]http.ServerOption) http1.Handler {
 	m := http1.NewServeMux()
-	makeSendHandler(m, endpoints, options["Send"])
-	makeQueryHandler(m, endpoints, options["Query"])
+	makeSMSSendHandler(m, endpoints, options["SMSSend"])
+	makeSMSQueryHandler(m, endpoints, options["SMSQuery"])
 	return m
 }

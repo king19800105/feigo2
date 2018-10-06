@@ -10,22 +10,15 @@ import (
 // meant to be used as a helper struct, to collect all of the endpoints into a
 // single parameter.
 type Endpoints struct {
-	SendEndpoint  endpoint.Endpoint
-	QueryEndpoint endpoint.Endpoint
+	SendEndpoint endpoint.Endpoint
 }
 
 // New returns a Endpoints struct that wraps the provided service, and wires in all of the
 // expected endpoint middlewares
 func New(s service.SmsService, mdw map[string][]endpoint.Middleware) Endpoints {
-	eps := Endpoints{
-		QueryEndpoint: MakeQueryEndpoint(s),
-		SendEndpoint:  MakeSendEndpoint(s),
-	}
+	eps := Endpoints{SendEndpoint: MakeSendEndpoint(s)}
 	for _, m := range mdw["Send"] {
 		eps.SendEndpoint = m(eps.SendEndpoint)
-	}
-	for _, m := range mdw["Query"] {
-		eps.QueryEndpoint = m(eps.QueryEndpoint)
 	}
 	return eps
 }

@@ -22,15 +22,9 @@ func LoggingMiddleware(logger log.Logger) Middleware {
 
 }
 
-func (l loggingMiddleware) Send(ctx context.Context, username string, key string, info SMSInfo) (i0 int, s1 string, s2 string) {
+func (l loggingMiddleware) Send(ctx context.Context, content SMSContent) (s0 string, e1 error) {
 	defer func() {
-		l.logger.Log("method", "Send", "username", username, "key", key, "info", info, "i0", i0, "s1", s1, "s2", s2)
+		l.logger.Log("method", "Send", "content", content, "s0", s0, "e1", e1)
 	}()
-	return l.next.Send(ctx, username, key, info)
-}
-func (l loggingMiddleware) Query(ctx context.Context, username string, key string) (f0 float64, e1 error) {
-	defer func() {
-		l.logger.Log("method", "Query", "username", username, "key", key, "f0", f0, "e1", e1)
-	}()
-	return l.next.Query(ctx, username, key)
+	return l.next.Send(ctx, content)
 }

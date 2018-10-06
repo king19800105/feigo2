@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pb;
+
+
+//The Sms service definition.
+service Sms {
+ rpc Send (SendRequest) returns (SendReply);
+}
+
+message SendRequest {}
+
+message SendReply {}
+
