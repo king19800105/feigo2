@@ -2,25 +2,22 @@ package service
 
 import (
 	"context"
-
-	smsservice "github.com/king19800105/feigo/sms/pkg/service"
+	"github.com/king19800105/feigo/api/pkg/io"
 )
 
-// 外部服务接口
-// 对外提供http访问接口，调用内部响应grpc完成业务
+// ApiService describes the service.
 type ApiService interface {
 	// 短信api
-	SMSSend(ctx context.Context, username string, key string, content smsservice.SMSContent) (string, error)
+	SMSSend(ctx context.Context, sendRequest io.SMSSendRequest) (string, error)
 	SMSQuery(ctx context.Context, username string, key string) (string, error)
 }
 
 type basicApiService struct{}
 
-func (b *basicApiService) SMSSend(ctx context.Context, username string, key string, content smsservice.SMSContent) (s0 string, e1 error) {
+func (b *basicApiService) SMSSend(ctx context.Context, sendRequest io.SMSSendRequest) (s0 string, e1 error) {
 	// TODO implement the business logic of SMSSend
 	return s0, e1
 }
-
 func (b *basicApiService) SMSQuery(ctx context.Context, username string, key string) (s0 string, e1 error) {
 	// TODO implement the business logic of SMSQuery
 	return s0, e1

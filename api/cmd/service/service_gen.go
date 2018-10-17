@@ -3,14 +3,14 @@ package service
 
 import (
 	endpoint1 "github.com/go-kit/kit/endpoint"
-	log "github.com/go-kit/kit/log"
-	prometheus "github.com/go-kit/kit/metrics/prometheus"
-	opentracing "github.com/go-kit/kit/tracing/opentracing"
-	http "github.com/go-kit/kit/transport/http"
-	endpoint "github.com/king19800105/feigo/api/pkg/endpoint"
+	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/metrics/prometheus"
+	"github.com/go-kit/kit/tracing/opentracing"
+	"github.com/go-kit/kit/transport/http"
+	"github.com/king19800105/feigo/api/pkg/endpoint"
 	http1 "github.com/king19800105/feigo/api/pkg/http"
-	service "github.com/king19800105/feigo/api/pkg/service"
-	group "github.com/oklog/oklog/pkg/group"
+	"github.com/king19800105/feigo/api/pkg/service"
+	"github.com/oklog/oklog/pkg/group"
 	opentracinggo "github.com/opentracing/opentracing-go"
 )
 
@@ -24,6 +24,7 @@ func defaultHttpOptions(logger log.Logger, tracer opentracinggo.Tracer) map[stri
 		"SMSQuery": {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "SMSQuery", logger))},
 		"SMSSend":  {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "SMSSend", logger))},
 	}
+
 	return options
 }
 func addDefaultEndpointMiddleware(logger log.Logger, duration *prometheus.Summary, mw map[string][]endpoint1.Middleware) {

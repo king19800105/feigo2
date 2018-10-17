@@ -4,23 +4,23 @@ import (
 	"flag"
 	"fmt"
 	endpoint1 "github.com/go-kit/kit/endpoint"
-	log "github.com/go-kit/kit/log"
-	prometheus "github.com/go-kit/kit/metrics/prometheus"
-	endpoint "github.com/king19800105/feigo/api/pkg/endpoint"
-	http "github.com/king19800105/feigo/api/pkg/http"
-	service "github.com/king19800105/feigo/api/pkg/service"
+	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/metrics/prometheus"
+	"github.com/king19800105/feigo/api/pkg/endpoint"
+	"github.com/king19800105/feigo/api/pkg/http"
+	"github.com/king19800105/feigo/api/pkg/service"
 	lightsteptracergo "github.com/lightstep/lightstep-tracer-go"
-	group "github.com/oklog/oklog/pkg/group"
+	"github.com/oklog/oklog/pkg/group"
 	opentracinggo "github.com/opentracing/opentracing-go"
 	zipkingoopentracing "github.com/openzipkin/zipkin-go-opentracing"
 	prometheus1 "github.com/prometheus/client_golang/prometheus"
-	promhttp "github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net"
 	http1 "net/http"
 	"os"
 	"os/signal"
-	appdash "sourcegraph.com/sourcegraph/appdash"
-	opentracing "sourcegraph.com/sourcegraph/appdash/opentracing"
+	"sourcegraph.com/sourcegraph/appdash"
+	"sourcegraph.com/sourcegraph/appdash/opentracing"
 	"syscall"
 )
 
@@ -90,7 +90,6 @@ func Run() {
 func initHttpHandler(endpoints endpoint.Endpoints, g *group.Group) {
 	options := defaultHttpOptions(logger, tracer)
 	// Add your http options here
-
 	httpHandler := http.NewHTTPHandler(endpoints, options)
 	httpListener, err := net.Listen("tcp", *httpAddr)
 	if err != nil {
